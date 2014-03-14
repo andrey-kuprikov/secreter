@@ -1,0 +1,4 @@
+secreter
+========
+
+Simple password manager
