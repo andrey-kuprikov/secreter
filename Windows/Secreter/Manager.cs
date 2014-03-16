@@ -79,6 +79,7 @@ namespace Secreter
 
             using (var fs = new FileStream(this.dataFileLocation, FileMode.Open))
             {
+                //fs.Seek(0, SeekOrigin.Begin);
                 fs.Write(IV, 0, IV.Length);
 
                 enc.Encrypt(tempKey, fs);
@@ -95,15 +96,13 @@ namespace Secreter
 
             using (var fs = new FileStream(this.dataFileLocation, FileMode.Open))
             {
-                for (int i = 0; i < 128 + 16 + 1; i++)
-                {
-                    fs.ReadByte();
-                }
-
-                
                 var IVLength = Encryptor.GetIVLength();
                 var IV = new byte[IVLength];
                 fs.Read(IV, 0, IVLength);
+
+                // var dataStream = new MemoryStream();
+                // fs.CopyTo(dataStream);
+                // dataStream.Seek(0, SeekOrigin.Begin);
 
                 var enc = new Encryptor(fs, IV);
 
@@ -113,13 +112,19 @@ namespace Secreter
                     throw new InvalidKeyException();
                 }
 
-                var decryptedStream = enc.Decrypt(tempKey);
-                tempKey = null;
+                using (var decryptedStream = enc.Decrypt(tempKey))
+                {
+                    tempKey = null;
 
-                var serializer = this.GetSerializer();
-                var passwords = (PasswordRecord[])serializer.Deserialize(decryptedStream);
+                    var serializer = this.GetSerializer();
+                    //var tmp = new MemoryStream();
+                    //decryptedStream.CopyTo(tmp);
+                    //tmp.Seek(0, SeekOrigin.Begin);
 
-                return passwords;
+                    var passwords = (PasswordRecord[])serializer.Deserialize(decryptedStream);
+
+                    return passwords;
+                }
             }
         }
 

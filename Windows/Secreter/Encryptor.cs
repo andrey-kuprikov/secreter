@@ -43,9 +43,10 @@ namespace Secreter
             // Create an encrytor to perform the stream transform.
             ICryptoTransform encryptor = aes.CreateEncryptor();
 
-            var encStream = new CryptoStream(dest, encryptor, CryptoStreamMode.Write);
-
-            this.source.CopyTo(encStream);
+            using (var encStream = new CryptoStream(dest, encryptor, CryptoStreamMode.Write))
+            {
+                this.source.CopyTo(encStream);
+            }
         }
 
         public Stream Decrypt(string key)
