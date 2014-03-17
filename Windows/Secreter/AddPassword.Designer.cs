@@ -32,6 +32,7 @@
             this.txtLogin = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.lstPasswords = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // txtName
@@ -70,11 +71,20 @@
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
             // 
+            // lstPasswords
+            // 
+            this.lstPasswords.FormattingEnabled = true;
+            this.lstPasswords.Location = new System.Drawing.Point(118, 12);
+            this.lstPasswords.Name = "lstPasswords";
+            this.lstPasswords.Size = new System.Drawing.Size(141, 108);
+            this.lstPasswords.TabIndex = 4;
+            // 
             // AddPassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(124, 262);
+            this.ClientSize = new System.Drawing.Size(272, 239);
+            this.Controls.Add(this.lstPasswords);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtLogin);
@@ -92,5 +102,6 @@
         private System.Windows.Forms.TextBox txtLogin;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.ListBox lstPasswords;
     }
 }
