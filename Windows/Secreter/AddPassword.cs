@@ -65,5 +65,17 @@ namespace Secreter
         {
             SetupCaption(txtPassword, txtPasswordCaption);
         }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            Global.mgr.Add(txtName.Text, txtLogin.Text, txtPassword.Text);
+        }
+
+        private void AddPassword_Load(object sender, EventArgs e)
+        {
+            SetupCaption(txtName, txtNameCaption);
+            SetupCaption(txtLogin, txtLoginCaption);
+            SetupCaption(txtPassword, txtPasswordCaption);
+        }
     }
 }

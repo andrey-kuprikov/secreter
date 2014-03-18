@@ -15,7 +15,6 @@ namespace Secreter
     public partial class Secreter : Form
     {
         KeyboardHook hook;
-        Manager mgr;
         NotifyIcon appIcon;
         ContextMenu trayMenu;
 
@@ -64,8 +63,8 @@ namespace Secreter
 
         private void InitManager()
         {
-            mgr = new Manager(Settings.Default.DataFileLocation);
-            mgr.secretKey = "1234";
+            Global.mgr = new Manager(Settings.Default.DataFileLocation);
+            Global.mgr.secretKey = "1234";
         }
 
         private void RegisterHook()
@@ -88,6 +87,7 @@ namespace Secreter
                     Y = Cursor.Position.Y - 4
                 };
 
+                FillPasswordList();
                 this.Visible = true;
                 this.WindowState = FormWindowState.Normal;
             }
@@ -107,9 +107,14 @@ namespace Secreter
             ShowApp();
         }
 
+        private void FillPasswordList()
+        {
+            lstPasswords.Items.Clear();
+            lstPasswords.Items.AddRange(Global.mgr.GetNames());
+        }
+
         private void Secreter_Load(object sender, EventArgs e)
         {
-            lstPasswords.Items.AddRange(mgr.GetNames());
             HideApp();
             ShowInTaskbar = true;
             InitAppIcon();
@@ -126,7 +131,7 @@ namespace Secreter
             if (index < 0) return null;
 
             var name = lstPasswords.Items[index].ToString();
-            return mgr.Get(name);
+            return Global.mgr.Get(name);
         }
 
         private void lstPasswords_MouseDown(object sender, MouseEventArgs e)

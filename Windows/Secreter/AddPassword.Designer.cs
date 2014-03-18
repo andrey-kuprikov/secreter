@@ -70,6 +70,7 @@
             this.btnAdd.TabIndex = 3;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // lstPasswords
             // 
@@ -91,6 +92,7 @@
             this.Controls.Add(this.txtName);
             this.Name = "AddPassword";
             this.Text = "AddPassword";
+            this.Load += new System.EventHandler(this.AddPassword_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
